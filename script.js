@@ -1,303 +1,264 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+// Data de início do relacionamento: 26 de junho de 2025
+const startDate = new Date('2025-06-26T00:00:00');
 
-body {
-    font-family: 'Press Start 2P', monospace;
-    background: linear-gradient(180deg, #0a0a23 0%, #1a1a3a 50%, #2a2a4a 100%);
-    min-height: 100vh;
-    overflow-x: hidden;
-    position: relative;
-    color: #ffffff;
-    image-rendering: pixelated;
-    image-rendering: -moz-crisp-edges;
-    image-rendering: crisp-edges;
-}
+// Elementos do DOM
+const monthsElement = document.getElementById('months');
+const daysElement = document.getElementById('days');
+const hoursElement = document.getElementById('hours');
+const minutesElement = document.getElementById('minutes');
+const secondsElement = document.getElementById('seconds');
 
-/* Estrelas animadas */
-.stars-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 1;
-    pointer-events: none;
-}
-
-.star {
-    position: absolute;
-    width: 4px;
-    height: 4px;
-    background: #ffd700;
-    border-radius: 0;
-    box-shadow: 0 0 6px #ffd700;
-    animation: twinkle 2s infinite alternate;
-}
-
-.star:nth-child(odd) {
-    animation-duration: 3s;
-}
-
-.star:nth-child(even) {
-    animation-duration: 2.5s;
-}
-
-/* Posicionamento das estrelas */
-.star-1 { top: 10%; left: 15%; animation-delay: 0s; }
-.star-2 { top: 20%; left: 80%; animation-delay: 0.5s; }
-.star-3 { top: 15%; left: 45%; animation-delay: 1s; }
-.star-4 { top: 30%; left: 25%; animation-delay: 1.5s; }
-.star-5 { top: 25%; left: 70%; animation-delay: 2s; }
-.star-6 { top: 40%; left: 10%; animation-delay: 0.3s; }
-.star-7 { top: 35%; left: 90%; animation-delay: 0.8s; }
-.star-8 { top: 50%; left: 60%; animation-delay: 1.3s; }
-.star-9 { top: 45%; left: 35%; animation-delay: 1.8s; }
-.star-10 { top: 60%; left: 85%; animation-delay: 0.2s; }
-.star-11 { top: 55%; left: 20%; animation-delay: 0.7s; }
-.star-12 { top: 70%; left: 50%; animation-delay: 1.2s; }
-.star-13 { top: 65%; left: 75%; animation-delay: 1.7s; }
-.star-14 { top: 80%; left: 30%; animation-delay: 0.4s; }
-.star-15 { top: 75%; left: 65%; animation-delay: 0.9s; }
-.star-16 { top: 85%; left: 15%; animation-delay: 1.4s; }
-.star-17 { top: 90%; left: 80%; animation-delay: 1.9s; }
-.star-18 { top: 5%; left: 60%; animation-delay: 0.6s; }
-.star-19 { top: 12%; left: 85%; animation-delay: 1.1s; }
-.star-20 { top: 8%; left: 25%; animation-delay: 1.6s; }
-
-@keyframes twinkle {
-    0% { opacity: 0.3; transform: scale(1); }
-    100% { opacity: 1; transform: scale(1.2); }
-}
-
-/* Container principal */
-.container {
-    position: relative;
-    z-index: 2;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
-    padding: 20px;
-    text-align: center;
-}
-
-/* Coração em pixel art */
-.heart-container {
-    margin-bottom: 40px;
-    animation: heartbeat 2s infinite;
-}
-
-.pixel-heart {
-    display: inline-block;
-}
-
-.heart-row {
-    display: flex;
-    justify-content: center;
-}
-
-.pixel {
-    width: 8px;
-    height: 8px;
-    margin: 1px;
-    background: transparent;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.pixel.filled {
-    background: #ff1744;
-    border: 1px solid #ff1744;
-    box-shadow: 0 0 4px #ff1744;
-}
-
-@keyframes heartbeat {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.1); }
-}
-
-/* Contador */
-.counter-container {
-    margin-bottom: 40px;
-}
-
-.title {
-    font-size: 16px;
-    margin-bottom: 10px;
-    color: #ffd700;
-    text-shadow: 2px 2px 0px #000000;
-}
-
-.date {
-    font-size: 12px;
-    margin-bottom: 30px;
-    color: #ff69b4;
-    text-shadow: 2px 2px 0px #000000;
-}
-
-.counter {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
-    max-width: 300px;
-    margin: 0 auto;
-}
-
-.time-unit {
-    background: rgba(0, 0, 0, 0.3);
-    border: 2px solid #4a4a8a;
-    padding: 15px 10px;
-    border-radius: 0;
-    box-shadow: inset 0 0 10px rgba(74, 74, 138, 0.3);
-}
-
-.time-value {
-    font-size: 20px;
-    color: #ffffff;
-    margin-bottom: 8px;
-    text-shadow: 2px 2px 0px #000000;
-    animation: glow 2s infinite alternate;
-}
-
-.time-label {
-    font-size: 8px;
-    color: #cccccc;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
-
-@keyframes glow {
-    0% { text-shadow: 2px 2px 0px #000000, 0 0 5px #ffffff; }
-    100% { text-shadow: 2px 2px 0px #000000, 0 0 15px #ffffff, 0 0 25px #ffffff; }
-}
-
-/* Mensagem */
-.message {
-    margin-top: 30px;
-}
-
-.message p {
-    font-size: 10px;
-    color: #ff69b4;
-    text-shadow: 2px 2px 0px #000000;
-    animation: pulse 3s infinite;
-}
-
-@keyframes pulse {
-    0%, 100% { opacity: 0.8; }
-    50% { opacity: 1; }
-}
-
-/* Responsividade para mobile */
-@media (max-width: 480px) {
-    .container {
-        padding: 15px;
+// Função para calcular a diferença de tempo
+function calculateTimeDifference() {
+    const now = new Date();
+    const timeDifference = now - startDate;
+    
+    // Se a data ainda não chegou, mostra zeros
+    if (timeDifference < 0) {
+        return {
+            months: 0,
+            days: 0,
+            hours: 0,
+            minutes: 0,
+            seconds: 0
+        };
     }
     
-    .title {
-        font-size: 14px;
+    // Calcular diferença total em milissegundos
+    const totalMs = Math.abs(timeDifference);
+    
+    // Calcular meses de forma mais precisa
+    let tempDate = new Date(startDate);
+    let months = 0;
+    
+    // Contar meses completos
+    while (tempDate <= now) {
+        tempDate.setMonth(tempDate.getMonth() + 1);
+        if (tempDate <= now) {
+            months++;
+        }
     }
     
-    .date {
-        font-size: 10px;
-    }
+    // Voltar para o último mês completo
+    tempDate.setMonth(tempDate.getMonth() - 1);
     
-    .counter {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 15px;
-        max-width: 280px;
-    }
+    // Calcular o tempo restante após os meses completos
+    const remainingMs = now - tempDate;
     
-    .time-unit {
-        padding: 12px 8px;
-    }
+    // Calcular dias, horas e segundos
+    const days = Math.floor(remainingMs / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((remainingMs % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((remainingMs % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((remainingMs % (1000 * 60)) / 1000);
     
-    .time-value {
-        font-size: 16px;
-    }
+    return {
+        months: months,
+        days: days,
+        hours: hours,
+        minutes: minutes,
+        seconds: seconds
+    };
+}
+
+// Função para atualizar o display
+function updateDisplay() {
+    const time = calculateTimeDifference();
     
-    .time-label {
-        font-size: 7px;
-    }
+    // Adicionar efeito de animação nos números
+    const elements = [
+        { element: monthsElement, value: time.months },
+        { element: daysElement, value: time.days },
+        { element: hoursElement, value: time.hours },
+        { element: minutesElement, value: time.minutes },
+        { element: secondsElement, value: time.seconds }
+    ];
     
-    .message p {
-        font-size: 9px;
-    }
+    elements.forEach(({ element, value }) => {
+        if (element && element.textContent !== value.toString()) {
+            element.style.transform = 'scale(1.2)';
+            element.style.color = '#ffd700';
+            
+            setTimeout(() => {
+                element.textContent = value;
+                element.style.transform = 'scale(1)';
+                element.style.color = '#ffffff';
+            }, 150);
+        }
+    });
+}
+
+// Função para criar efeitos especiais
+function createSpecialEffects() {
+    // Adicionar mais estrelas dinamicamente
+    const starsContainer = document.querySelector('.stars-container');
     
-    .pixel {
-        width: 6px;
-        height: 6px;
+    setInterval(() => {
+        const star = document.createElement('div');
+        star.className = 'star';
+        star.style.left = Math.random() * 100 + '%';
+        star.style.top = Math.random() * 100 + '%';
+        star.style.animationDuration = (Math.random() * 3 + 1) + 's';
+        star.style.animationDelay = Math.random() * 2 + 's';
+        
+        starsContainer.appendChild(star);
+        
+        // Remover a estrela após 10 segundos
+        setTimeout(() => {
+            if (star.parentNode) {
+                star.parentNode.removeChild(star);
+            }
+        }, 10000);
+    }, 5000);
+}
+
+// Função para adicionar efeitos de toque em mobile
+function addTouchEffects() {
+    const timeUnits = document.querySelectorAll('.time-unit');
+    const heart = document.querySelector('.pixel-heart');
+    
+    timeUnits.forEach(unit => {
+        unit.addEventListener('touchstart', function() {
+            this.style.transform = 'scale(0.95)';
+            this.style.boxShadow = 'inset 0 0 20px rgba(74, 74, 138, 0.6)';
+        });
+        
+        unit.addEventListener('touchend', function() {
+            this.style.transform = 'scale(1)';
+            this.style.boxShadow = 'inset 0 0 10px rgba(74, 74, 138, 0.3)';
+        });
+    });
+    
+    // Efeito especial no coração
+    heart.addEventListener('touchstart', function() {
+        this.style.animation = 'heartbeat 0.5s ease-in-out';
+        
+        // Criar corações flutuantes
+        for (let i = 0; i < 5; i++) {
+            setTimeout(() => {
+                createFloatingHeart();
+            }, i * 100);
+        }
+    });
+}
+
+// Função para criar corações flutuantes
+function createFloatingHeart() {
+    const floatingHeart = document.createElement('div');
+    floatingHeart.innerHTML = '💕';
+    floatingHeart.style.position = 'fixed';
+    floatingHeart.style.left = Math.random() * window.innerWidth + 'px';
+    floatingHeart.style.top = window.innerHeight + 'px';
+    floatingHeart.style.fontSize = '20px';
+    floatingHeart.style.pointerEvents = 'none';
+    floatingHeart.style.zIndex = '1000';
+    floatingHeart.style.animation = 'floatUp 3s ease-out forwards';
+    
+    document.body.appendChild(floatingHeart);
+    
+    setTimeout(() => {
+        if (floatingHeart.parentNode) {
+            floatingHeart.parentNode.removeChild(floatingHeart);
+        }
+    }, 3000);
+}
+
+// Adicionar CSS para animação de corações flutuantes
+const style = document.createElement('style');
+style.textContent = `
+    @keyframes floatUp {
+        0% {
+            transform: translateY(0) rotate(0deg);
+            opacity: 1;
+        }
+        100% {
+            transform: translateY(-100vh) rotate(360deg);
+            opacity: 0;
+        }
+    }
+`;
+document.head.appendChild(style);
+
+// Inicializar
+document.addEventListener('DOMContentLoaded', function() {
+    // Atualizar imediatamente
+    updateDisplay();
+    
+    // Atualizar a cada segundo
+    setInterval(updateDisplay, 1000);
+    
+    // Iniciar efeitos especiais
+    createSpecialEffects();
+    
+    // Adicionar efeitos de toque
+    addTouchEffects();
+    
+    // Mensagem especial no console para desenvolvedores curiosos
+    console.log('💕 Feito com amor para uma pessoa muito especial 💕');
+});
+
+// Função para detectar se é um momento especial (aniversário mensal)
+function checkSpecialMoment() {
+    const now = new Date();
+    const day = now.getDate();
+    const hour = now.getHours();
+    const minute = now.getMinutes();
+    
+    // Se é dia 26 às 00:00
+    if (day === 26 && hour === 0 && minute === 0) {
+        // Criar efeito especial de fogos de artifício
+        createFireworks();
     }
 }
 
-@media (max-width: 320px) {
-    .title {
-        font-size: 12px;
-    }
+// Função para criar efeito de fogos de artifício
+function createFireworks() {
+    const colors = ['#ff1744', '#ffd700', '#ff69b4', '#ffffff'];
     
-    .date {
-        font-size: 9px;
-    }
-    
-    .time-value {
-        font-size: 14px;
-    }
-    
-    .time-label {
-        font-size: 6px;
-    }
-    
-    .message p {
-        font-size: 8px;
-    }
-    
-    .pixel {
-        width: 5px;
-        height: 5px;
-    }
-    
-    .counter {
-        gap: 10px;
-        max-width: 250px;
-    }
-    
-    .time-unit {
-        padding: 10px 6px;
+    for (let i = 0; i < 20; i++) {
+        setTimeout(() => {
+            const firework = document.createElement('div');
+            firework.style.position = 'fixed';
+            firework.style.left = Math.random() * window.innerWidth + 'px';
+            firework.style.top = Math.random() * window.innerHeight + 'px';
+            firework.style.width = '4px';
+            firework.style.height = '4px';
+            firework.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+            firework.style.borderRadius = '50%';
+            firework.style.pointerEvents = 'none';
+            firework.style.zIndex = '1001';
+            firework.style.animation = 'explode 2s ease-out forwards';
+            
+            document.body.appendChild(firework);
+            
+            setTimeout(() => {
+                if (firework.parentNode) {
+                    firework.parentNode.removeChild(firework);
+                }
+            }, 2000);
+        }, i * 100);
     }
 }
 
-/* Efeitos especiais */
-@media (hover: hover) {
-    .time-unit:hover {
-        transform: scale(1.05);
-        transition: transform 0.3s ease;
+// Adicionar CSS para animação de fogos de artifício
+const fireworksStyle = document.createElement('style');
+fireworksStyle.textContent = `
+    @keyframes explode {
+        0% {
+            transform: scale(1);
+            opacity: 1;
+        }
+        50% {
+            transform: scale(3);
+            opacity: 0.8;
+        }
+        100% {
+            transform: scale(6);
+            opacity: 0;
+        }
     }
-}
+`;
+document.head.appendChild(fireworksStyle);
 
-/* Animação de entrada */
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.heart-container {
-    animation: fadeInUp 1s ease-out, heartbeat 2s infinite 1s;
-}
-
-.counter-container {
-    animation: fadeInUp 1s ease-out 0.5s both;
-}
-
-.message {
-    animation: fadeInUp 1s ease-out 1s both;
-}
+// Verificar momentos especiais a cada minuto
+setInterval(checkSpecialMoment, 60000);
 
